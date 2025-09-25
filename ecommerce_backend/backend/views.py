@@ -223,18 +223,27 @@ def manageproductview(request):
         print(response)
         return JsonResponse(response)
 
+from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
+from .models import Products
+
 def addproducts(request):
-        product=request.POST['product']
-        des=request.POST['detail']
-        price=request.POST['amount']
-        image_url = request.POST.get('imageUrl', '')
-        p = Products(pname=product,description=des,price=price,last_updated=datetime.now(),image=image_url)
-        p.save()
-        response = {
-        'status': 'success',
-        }
-        print(response)
-        return JsonResponse(response)
+    pname = request.POST.get('product')      
+    description = request.POST.get('detail')
+    price = request.POST.get('amount')
+
+    image = request.FILES.get('image')      
+    img_url = None
+    if image:
+        fs = FileSystemStorage()
+        img_url = fs.save(image.name, image)
+
+    p = Products(pname=pname, description=description, price=price, image=img_url,last_updated=datetime.now())
+    p.save()
+    print(image,'iiiiiiiiiifdfafadfasssssssssssssssssssssssssssssssssssssfsafasiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',price)
+
+    return JsonResponse({'status':'success'})
+
 
 def pedit(request, pid):
         p = Products.objects.get(id=pid)
