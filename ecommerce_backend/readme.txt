@@ -24,13 +24,31 @@ Tech Stack
 
 Setup Instructions (Backend)
 -	Create a virtual environment
-o	python -m venv venv
-o	venv\Scripts\activate
+-   python -m venv venv
+-   venv\Scripts\activate
+
 -	pip install -r requirements.txt
+
+-   connect your MySQL Database to settings.py
+
 -	python manage.py makemigrations
 -	python manage.py migrate
 -	python manage.py runserver
+
+-   Create superuser
+    python manage.py createsuperuser
+
+-   Login as default django admin 
+
+-   Create Groups as ('user' and 'admin' - remmeber all in small letters)
+-   Create Project Admin (Seperate admin as mentioned in the task ) 
+    -   Click plus icon near User in Dashboard
+    -   Create Admin username and password and save
+    -   Add this User to admin group
+    -   save
+
 (Frontend)
 -	flutter pub get
+-   Set your wifi IP address in main.dart
 -	flutter run -d chrome   # For web
 -	flutter run             # For mobile
